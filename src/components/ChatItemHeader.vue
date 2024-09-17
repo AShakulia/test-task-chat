@@ -1,6 +1,6 @@
 <template>
   <div class="header-chat-list">
-    <div class="header-chat-list__menu">
+    <div class="header-chat-list__menu" @click="toggleMenu">
       <img 
         class="header-chat-list__menu-icon" 
         src="../assets/icons/icon-menu.svg" 
@@ -32,14 +32,20 @@
 import { ref } from 'vue';
 import { defineEmits } from 'vue';
 
-const emit = defineEmits(['update:query']);
+const emit = defineEmits(['update:query', 'toggle-menu']);
 const query = ref('');
 
 // Обработчик клика для кнопки поиска
 const handleSearch = () => {
   emit('update:query', query.value);
 };
+
+// Обработчик клика для меню
+const toggleMenu = () => {
+  emit('toggle-menu');
+};
 </script>
+
 
 <style scoped lang="scss">
 @import '../assets/style/variables.scss';
