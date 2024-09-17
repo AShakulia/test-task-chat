@@ -1,0 +1,66 @@
+// Reset SCSS
+
+// Box sizing
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+// Remove default margins
+body,
+h1, h2, h3, h4, h5, h6,
+p, blockquote,
+figure,
+dl, dd {
+  margin: 0;
+}
+
+// Set core body defaults
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Remove list styles on all lists
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Anchor tags without default underline
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// Remove all borders from images and figures
+img,
+picture {
+  display: block;
+}
+
+// Reset form elements
+input, button, textarea, select {
+  font: inherit;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+// Remove animations and transitions for people who prefer not to see them
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
