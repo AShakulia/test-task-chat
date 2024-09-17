@@ -6,10 +6,10 @@
       :lastActive="selectedChat?.lastActive"
     />
     <div class="chat-window__messages">
-    <LastMessageTime 
-      :timestamp="selectedChat?.messages.length > 0 ? selectedChat.messages[selectedChat.messages.length - 1].timestamp : null" 
-      customClass="chat-window__message-time"
-    />
+      <LastMessageTime 
+        :timestamp="selectedChat?.messages.length > 0 ? selectedChat.messages[selectedChat.messages.length - 1].timestamp : null" 
+        customClass="chat-window__message-time"
+      />
       <div 
         v-for="(message, index) in selectedChat?.messages" 
         :key="index"
@@ -31,10 +31,11 @@
           class="chat-window__btn-input"
         />
         <button @click="sendMessage" class="chat-window__btn-send-button">
-          <img class="chat-window__btn-send-icon" src="../assets/icons/icon-send.svg" alt="Поиск">
+          <img class="chat-window__btn-send-icon" src="../assets/icons/icon-send.svg" alt="Отправить">
         </button>
       </div>
     </div>
+    <Notification v-if="notificationMessage" :message="notificationMessage" />
   </div>
 </template>
 
@@ -44,14 +45,23 @@ import { useChatStore } from '@/store';
 import ChatHeader from './ChatHeader.vue';
 import LastMessageTime from './LastMessageTime.vue';
 import dayjs from 'dayjs';
+import Notification from './Notification.vue';
 
 const chatStore = useChatStore();
 
 const newMessage = ref('');
 const selectedChat = computed(() => chatStore.getSelectedChat());
 
+const notificationMessage = ref('');
+
 const sendMessage = () => {
-  if (newMessage.value.trim() === '') return;
+  if (newMessage.value.trim() === '') {
+    notificationMessage.value = 'Сообщение не может быть пустым!';
+    setTimeout(() => {
+      notificationMessage.value = '';
+    }, 3000); // Уведомление исчезнет через 3 секунды
+    return;
+  }
 
   chatStore.addMessage(selectedChat.value.id, { 
     text: newMessage.value, 
@@ -131,45 +141,45 @@ const formatTime = (timestamp) => {
       height: 56px;
       margin: 16px 32px 24px;
       border-radius: 12px;
-      }
-    
-      &-smile-button {
-        padding: 16px 2px 16px 16px;
-        border: none;
-        cursor: pointer;
-        height: 100%;
+    }
+  
+    &-smile-button {
+      padding: 16px 2px 16px 16px;
+      border: none;
+      cursor: pointer;
+      height: 100%;
 
-        &-icon {
-          width: 24px;
-          height: 24px;
-          color: $chat-window-message-btn-color;
-        }
-      }
-
-      &-input {
-        flex: 1;
-        height: 100%;
-        width: 100%;
-        padding: 0;
-        outline: none;
+      &-icon {
+        width: 24px;
+        height: 24px;
         color: $chat-window-message-btn-color;
-
-        &::placeholder {
-          color: $chat-window-message-btn-color;
-        }
       }
+    }
 
-      &-send-button {
-        padding: 16px;
-        border: none;
-        cursor: pointer;
-        height: 100%;
+    &-input {
+      flex: 1;
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      outline: none;
+      color: $chat-window-message-btn-color;
 
-        &-icon {
-          width: 24px;
-          height: 24px;
-          color: $chat-window-message-btn-color;
-        }  
+      &::placeholder {
+        color: $chat-window-message-btn-color;
+      }
+    }
+
+    &-send-button {
+      padding: 16px;
+      border: none;
+      cursor: pointer;
+      height: 100%;
+
+      &-icon {
+        width: 24px;
+        height: 24px;
+        color: $chat-window-message-btn-color;
+      }  
     }
   }
 }
@@ -194,7 +204,6 @@ const formatTime = (timestamp) => {
   color: $chat-window-text-bg;
 }
 </style>
-
 
 
 
