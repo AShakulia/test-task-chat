@@ -1,35 +1,8 @@
-# test-task-chat
+1. Для установки приложения необходимо в папке test-task-chat установить зависимости через терминал командой npm install
+2. Для запуска приложения необходимо в терминале запустить команду npm run dev.
+3. Ветка main содержит полный функционал сервиса
+4. Ветка layout_and_basic_logic содержит верстку + базовую логику, сервис разработан с учетом адаптивной верстки, тк не было макетов под все экраны, для обеспечения адаптивности некоторые элементы могут отличаться от размера макета.
+5. Ветка collapse - фича по уменьшению ширины ChatList
+6. Ветка notification - фича для уведомления о пустом сообщение, использовался teleport от vue
 
-This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
