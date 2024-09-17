@@ -1,6 +1,6 @@
 <template>
-  <div class="chat-list">
-    <ChatItemHeader v-model:query="searchQuery" />
+  <div :class="['chat-list', { 'chat-list--collapsed': isCollapsed }]">
+    <ChatItemHeader v-model:query="searchQuery" @toggle-menu="toggleMenu" />
     <ChatItem 
       v-for="chat in filteredChats" 
       :key="chat.id"
@@ -36,6 +36,12 @@ const selectChat = (chatId) => {
   chatStore.selectChat(chatId);
   router.push(`/chat/${chatId}`);
 };
+
+// Для управления шириной
+const isCollapsed = ref(false);
+const toggleMenu = () => {
+  isCollapsed.value = !isCollapsed.value;
+};
 </script>
 
 <style scoped lang="scss">
@@ -43,11 +49,13 @@ const selectChat = (chatId) => {
   width: 364px;
   height: 100vh;
   overflow: auto;
-  
+
+  &.chat-list--collapsed {
+    width: 72px;
+  }
+
   &::-webkit-scrollbar {
-  display: none;
-}
+    display: none;
+  }
 }
 </style>
-
-
